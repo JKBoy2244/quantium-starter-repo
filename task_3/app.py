@@ -27,15 +27,6 @@ fig.update_layout(
     template="plotly_white"
 )
 
-# Add a marker for the price increase date
-fig.add_vline(
-    x=pd.Timestamp("2021-01-15"),
-    line_dash="dash",
-    line_color="red",
-    annotation_text="Price increase: 2021-01-15",
-    annotation_position="top left"
-)
-
 # Create the Dash app
 app = Dash(__name__)
 
