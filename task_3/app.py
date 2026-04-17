@@ -6,14 +6,14 @@ import plotly.express as px
 df = pd.read_csv("formatted_data.csv")
 df["date"] = pd.to_datetime(df["date"])
 
-# Sum sales by date so the line chart clearly answers the business question
+# Group by date and sum sales
 daily_sales = (
     df.groupby("date", as_index=False)["sales"]
     .sum()
     .sort_values("date")
 )
 
-# Build the line chart
+# Create the line chart
 fig = px.line(
     daily_sales,
     x="date",
@@ -27,15 +27,13 @@ fig.update_layout(
     template="plotly_white"
 )
 
-# Create the Dash app
+# Create Dash app
 app = Dash(__name__)
 
-app.layout = html.Div(
-    children=[
-        html.H1("Pink Morsel Sales Visualiser"),
-        dcc.Graph(figure=fig),
-    ]
-)
+app.layout = html.Div([
+    html.H1("Pink Morsel Sales Visualiser"),
+    dcc.Graph(figure=fig)
+])
 
 if __name__ == "__main__":
     app.run(debug=True)
